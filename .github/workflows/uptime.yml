@@ -15,7 +15,7 @@ jobs:
           python3 -c '
           import urllib.request, json, datetime
           targets = {
-              "Official Web": "https://tanveer-web.blogspot.com//",
+              "Official Web": "https://tanveer-web.blogspot.com/",
               "GitHub Profile": "https://vexornull.github.io/digital-creator/"
           }
           result = {}
