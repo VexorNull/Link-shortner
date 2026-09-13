@@ -2,32 +2,26 @@
   "Link Shortener Hub": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:09:19.877764"
+    "checked_utc": "2026-09-13 20:12:27.757356"
   },
   "GitHub Profile": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:09:20.079180"
-  },
-  "VexorVPN": {
-    "online": false,
-    "code": 404,
-    "error": "HTTP Error 404: Not Found",
-    "checked_utc": "2026-09-13 20:09:20.115296"
+    "checked_utc": "2026-09-13 20:12:28.114485"
   },
   "Tanveer Web (Blogger)": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:09:20.391627"
+    "checked_utc": "2026-09-13 20:12:28.415139"
   },
   "Digital Creator Vercel": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:09:20.596267"
+    "checked_utc": "2026-09-13 20:12:28.779459"
   },
   "Digital Creator Repo": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:09:20.975726"
+    "checked_utc": "2026-09-13 20:12:29.266919"
   }
 }
