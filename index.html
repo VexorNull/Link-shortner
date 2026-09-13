@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VexorStatus</title>
+    <title>VexorHub / Status & Redirect</title>
     <style>
         body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; max-width: 600px; margin: 40px auto; padding: 20px; display: flex; flex-direction: column; min-height: 85vh; box-sizing: border-box; }
         main { flex: 1; }
@@ -16,41 +16,74 @@
         footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #334155; text-align: center; font-size: 0.825rem; color: #94a3b8; }
         footer a { color: #38bdf8; text-decoration: none; }
         footer a:hover { text-decoration: underline; }
+        .status-center { text-align: center; padding: 60px 0; }
     </style>
 </head>
 <body>
-    <main>
-        <h1>System Status</h1>
-        <div id="status-container">Loading status...</div>
-    </main>
+    <div id="redirect-view" class="status-center" style="display:none;">
+        <h2 id="redir-title">Redirecting...</h2>
+        <p id="redir-sub" style="color: #94a3b8;"></p>
+    </div>
+
+    <div id="dashboard-view">
+        <main>
+            <h1>System Status</h1>
+            <div id="status-container">Loading status...</div>
+        </main>
+    </div>
 
     <footer>
         Crafted by <a href="https://github.com/VexorNull" target="_blank" rel="noopener">Tanveer Hussain</a> (@vexornull)
     </footer>
 
     <script>
-        fetch('status.json')
-            .then(r => r.json())
-            .then(data => {
-                let html = '';
-                for (const [name, info] of Object.entries(data)) {
-                    const statusClass = info.online ? 'up' : 'down';
-                    const statusText = info.online ? 'Operational' : 'Outage';
-                    html += `
-                        <div class="card">
-                            <div>
-                                <strong>${name}</strong>
-                                <div class="meta">Checked: ${info.checked_utc}</div>
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('s');
+
+        if (slug) {
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('redirect-view').style.display = 'block';
+            document.getElementById('redir-title').innerText = `Redirecting from /?s=${slug}`;
+            
+            fetch('links.json')
+                .then(r => r.json())
+                .then(links => {
+                    if (links[slug]) {
+                        document.getElementById('redir-sub').innerText = `Target: ${links[slug]}`;
+                        window.location.replace(links[slug]);
+                    } else {
+                        document.getElementById('redir-title').innerText = '404 — Slug Not Found';
+                        document.getElementById('redir-sub').innerText = `No mapping for "${slug}"`;
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('redir-title').innerText = 'Error';
+                    document.getElementById('redir-sub').innerText = 'Failed to load links.json';
+                });
+        } else {
+            fetch('status.json')
+                .then(r => r.json())
+                .then(data => {
+                    let html = '';
+                    for (const [name, info] of Object.entries(data)) {
+                        const statusClass = info.online ? 'up' : 'down';
+                        const statusText = info.online ? 'Operational' : 'Outage';
+                        html += `
+                            <div class="card">
+                                <div>
+                                    <strong>${name}</strong>
+                                    <div class="meta">Checked: ${info.checked_utc}</div>
+                                </div>
+                                <span class="badge ${statusClass}">${statusText}</span>
                             </div>
-                            <span class="badge ${statusClass}">${statusText}</span>
-                        </div>
-                    `;
-                }
-                document.getElementById('status-container').innerHTML = html;
-            })
-            .catch(() => {
-                document.getElementById('status-container').innerHTML = '<p style="color:#f87171">Failed to load status.json</p>';
-            });
+                        `;
+                    }
+                    document.getElementById('status-container').innerHTML = html;
+                })
+                .catch(() => {
+                    document.getElementById('status-container').innerHTML = '<p style="color:#f87171">status.json pending/generating. Trigger workflow manually once.</p>';
+                });
+        }
     </script>
 </body>
 </html>
