@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VexorStatus</title>
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; max-width: 600px; margin: 40px auto; padding: 20px; display: flex; flex-direction: column; min-height: 85vh; box-sizing: border-box; }
+        main { flex: 1; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .badge { padding: 4px 10px; border-radius: 999.9px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .up { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+        .down { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+        h1 { font-size: 1.4rem; margin-bottom: 24px; }
+        .meta { font-size: 0.8rem; color: #94a3b8; margin-top: 4px; }
+        footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #334155; text-align: center; font-size: 0.825rem; color: #94a3b8; }
+        footer a { color: #38bdf8; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>System Status</h1>
+        <div id="status-container">Loading status...</div>
+    </main>
+
+    <footer>
+        Crafted by <a href="https://github.com/VexorNull" target="_blank" rel="noopener">Tanveer Hussain</a> (@vexornull)
+    </footer>
+
+    <script>
+        fetch('status.json')
+            .then(r => r.json())
+            .then(data => {
+                let html = '';
+                for (const [name, info] of Object.entries(data)) {
+                    const statusClass = info.online ? 'up' : 'down';
+                    const statusText = info.online ? 'Operational' : 'Outage';
+                    html += `
+                        <div class="card">
+                            <div>
+                                <strong>${name}</strong>
+                                <div class="meta">Checked: ${info.checked_utc}</div>
+                            </div>
+                            <span class="badge ${statusClass}">${statusText}</span>
+                        </div>
+                    `;
+                }
+                document.getElementById('status-container').innerHTML = html;
+            })
+            .catch(() => {
+                document.getElementById('status-container').innerHTML = '<p style="color:#f87171">Failed to load status.json</p>';
+            });
+    </script>
+</body>
+</html>
