@@ -15,12 +15,8 @@ jobs:
           python3 -c '
           import urllib.request, json, datetime
           targets = {
-              "Link Shortener Hub": "https://vexornull.github.io/Link-shortner/",
-              "GitHub Profile": "https://github.com/VexorNull",
-              "VexorVPN": "https://vexornull.github.io/VexorVPN/",
-              "Tanveer Web (Blogger)": "https://tanveer-web.blogspot.com",
-              "Digital Creator Vercel": "https://digital-creator-tanveer.vercel.app/",
-              "Digital Creator Repo": "https://github.com/VexorNull/digital-creator"
+              "CyberPulse Portfolio": "https://vexornull.github.io/digital-creator/",
+              "GitHub Profile": "https://github.com/VexorNull"
           }
           result = {}
           for name, url in targets.items():
@@ -30,7 +26,7 @@ jobs:
                   is_up = res.status in range(200, 400)
                   result[name] = {"online": is_up, "code": res.status, "checked_utc": str(datetime.datetime.utcnow())}
               except Exception as e:
-                  result[name] = {"online": False, "code": getattr(e, "code", "EX"), "error": str(e), "checked_utc": str(datetime.datetime.utcnow())}
+                  result[name] = {"online": False, "error": str(e), "checked_utc": str(datetime.datetime.utcnow())}
           with open("status.json", "w") as f:
               json.dump(result, f, indent=2)
           '
@@ -40,4 +36,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add status.json
           git commit -m "Auto: Update uptime status [skip ci]" || echo "No changes"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main || true
+          git push origin HEAD:main || git push origin HEAD:master
