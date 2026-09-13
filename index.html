@@ -1,89 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VexorHub / Status & Redirect</title>
-    <style>
-        body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #f8fafc; max-width: 600px; margin: 40px auto; padding: 20px; display: flex; flex-direction: column; min-height: 85vh; box-sizing: border-box; }
-        main { flex: 1; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
-        .badge { padding: 4px 10px; border-radius: 999.9px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
-        .up { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
-        .down { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-        h1 { font-size: 1.4rem; margin-bottom: 24px; }
-        .meta { font-size: 0.8rem; color: #94a3b8; margin-top: 4px; }
-        footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #334155; text-align: center; font-size: 0.825rem; color: #94a3b8; }
-        footer a { color: #38bdf8; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        .status-center { text-align: center; padding: 60px 0; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Status - Link Shortener Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b0f19;
+      color: #f3f4f6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+    #status-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .status-card {
+      background-color: #111827;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .name {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+    .operational {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    .outage {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+    }
+    .checked {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    footer {
+      margin-top: 48px;
+      font-size: 0.8125rem;
+      color: #6b7280;
+      text-align: center;
+      border-top: 1px solid #1f2937;
+      padding-top: 24px;
+      width: 100%;
+      max-width: 600px;
+    }
+  </style>
 </head>
 <body>
-    <div id="redirect-view" class="status-center" style="display:none;">
-        <h2 id="redir-title">Redirecting...</h2>
-        <p id="redir-sub" style="color: #94a3b8;"></p>
+  <div class="container">
+    <h1>System Status</h1>
+    <div id="status-container">
+      <div class="status-card">
+        <div class="card-top">
+          <div class="name">Loading status...</div>
+        </div>
+      </div>
     </div>
-
-    <div id="dashboard-view">
-        <main>
-            <h1>System Status</h1>
-            <div id="status-container">Loading status...</div>
-        </main>
-    </div>
-
-    <footer>
-        Crafted by <a href="https://github.com/VexorNull" target="_blank" rel="noopener">Tanveer Hussain</a> (@vexornull)
-    </footer>
-
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const slug = params.get('s');
-
-        if (slug) {
-            document.getElementById('dashboard-view').style.display = 'none';
-            document.getElementById('redirect-view').style.display = 'block';
-            document.getElementById('redir-title').innerText = `Redirecting from /?s=${slug}`;
-            
-            fetch('links.json')
-                .then(r => r.json())
-                .then(links => {
-                    if (links[slug]) {
-                        document.getElementById('redir-sub').innerText = `Target: ${links[slug]}`;
-                        window.location.replace(links[slug]);
-                    } else {
-                        document.getElementById('redir-title').innerText = '404 — Slug Not Found';
-                        document.getElementById('redir-sub').innerText = `No mapping for "${slug}"`;
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('redir-title').innerText = 'Error';
-                    document.getElementById('redir-sub').innerText = 'Failed to load links.json';
-                });
-        } else {
-            fetch('status.json')
-                .then(r => r.json())
-                .then(data => {
-                    let html = '';
-                    for (const [name, info] of Object.entries(data)) {
-                        const statusClass = info.online ? 'up' : 'down';
-                        const statusText = info.online ? 'Operational' : 'Outage';
-                        html += `
-                            <div class="card">
-                                <div>
-                                    <strong>${name}</strong>
-                                    <div class="meta">Checked: ${info.checked_utc}</div>
-                                </div>
-                                <span class="badge ${statusClass}">${statusText}</span>
-                            </div>
-                        `;
-                    }
-                    document.getElementById('status-container').innerHTML = html;
-                })
-                .catch(() => {
-                    document.getElementById('status-container').innerHTML = '<p style="color:#f87171">status.json pending/generating. Trigger workflow manually once.</p>';
-                });
+  </div>
+  <footer>
+    Crafted by Tanveer Hussain (@vexornull)
+  </footer>
+  <script>
+    async function loadStatus() {
+      try {
+        const res = await fetch('status.json?v=' + new Date().getTime());
+        const data = await res.json();
+        const container = document.getElementById('status-container');
+        container.innerHTML = '';
+        
+        for (const [name, info] of Object.entries(data)) {
+          const isUp = info.online;
+          const card = document.createElement('div');
+          card.className = 'status-card';
+          card.innerHTML = `
+            <div class="card-top">
+              <div class="name">${name}</div>
+              <div class="badge ${isUp ? 'operational' : 'outage'}">${isUp ? 'OPERATIONAL' : 'OUTAGE'}</div>
+            </div>
+            <div class="checked">Checked: ${info.checked_utc || ''}</div>
+          `;
+          container.appendChild(card);
         }
-    </script>
+      } catch (err) {
+        document.getElementById('status-container').innerHTML = `
+          <div class="status-card">
+            <div class="card-top">
+              <div class="name">Failed to load status.json</div>
+              <div class="badge outage">ERROR</div>
+            </div>
+          </div>
+        `;
+      }
+    }
+    loadStatus();
+    setInterval(loadStatus, 30000);
+  </script>
 </body>
 </html>
