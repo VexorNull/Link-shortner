@@ -1,12 +1,12 @@
 {
-  "CyberPulse Portfolio": {
+  "Official Web": {
     "online": false,
-    "error": "HTTP Error 404: Not Found",
-    "checked_utc": "2026-09-13 19:44:30.508458"
+    "error": "HTTP Error 429: Too Many Requests",
+    "checked_utc": "2026-09-13 20:04:24.366689"
   },
   "GitHub Profile": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 19:44:30.538128"
+    "checked_utc": "2026-09-13 20:04:24.441298"
   }
 }
