@@ -15,7 +15,7 @@ jobs:
           python3 -c '
           import urllib.request, json, datetime
           targets = {
-              "CyberPulse Portfolio": "https://vexornull.github.io/cyberpulse/",
+              "CyberPulse Portfolio": "https://vexornull.github.io/digital-creator/",
               "GitHub Profile": "https://github.com/VexorNull"
           }
           result = {}
