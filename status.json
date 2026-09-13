@@ -1,12 +1,33 @@
 {
-  "Official Web": {
-    "online": false,
-    "error": "HTTP Error 429: Too Many Requests",
-    "checked_utc": "2026-09-13 20:04:24.366689"
+  "Link Shortener Hub": {
+    "online": true,
+    "code": 200,
+    "checked_utc": "2026-09-13 20:09:19.877764"
   },
   "GitHub Profile": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-13 20:04:24.441298"
+    "checked_utc": "2026-09-13 20:09:20.079180"
+  },
+  "VexorVPN": {
+    "online": false,
+    "code": 404,
+    "error": "HTTP Error 404: Not Found",
+    "checked_utc": "2026-09-13 20:09:20.115296"
+  },
+  "Tanveer Web (Blogger)": {
+    "online": true,
+    "code": 200,
+    "checked_utc": "2026-09-13 20:09:20.391627"
+  },
+  "Digital Creator Vercel": {
+    "online": true,
+    "code": 200,
+    "checked_utc": "2026-09-13 20:09:20.596267"
+  },
+  "Digital Creator Repo": {
+    "online": true,
+    "code": 200,
+    "checked_utc": "2026-09-13 20:09:20.975726"
   }
 }
