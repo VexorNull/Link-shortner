@@ -2,26 +2,27 @@
   "Link Shortener Hub": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-27 11:11:07.812844"
+    "checked_utc": "2026-09-27 15:43:01.729560"
   },
   "GitHub Profile": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-27 11:11:08.452355"
+    "checked_utc": "2026-09-27 15:43:02.118121"
   },
   "Tanveer Web (Blogger)": {
-    "online": true,
-    "code": 200,
-    "checked_utc": "2026-09-27 11:11:08.667588"
+    "online": false,
+    "code": 429,
+    "error": "HTTP Error 429: Too Many Requests",
+    "checked_utc": "2026-09-27 15:43:02.516774"
   },
   "Digital Creator Vercel": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-27 11:11:08.819255"
+    "checked_utc": "2026-09-27 15:43:02.628953"
   },
   "Digital Creator Repo": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-09-27 11:11:09.462476"
+    "checked_utc": "2026-09-27 15:43:03.235812"
   }
 }
