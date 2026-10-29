@@ -3,26 +3,27 @@
     "online": false,
     "code": 404,
     "error": "HTTP Error 404: Not Found",
-    "checked_utc": "2026-10-28 20:25:41.884793"
+    "checked_utc": "2026-10-29 00:09:42.241158"
   },
   "GitHub Profile": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-10-28 20:25:42.265285"
+    "checked_utc": "2026-10-29 00:09:42.635697"
   },
   "Tanveer Web (Blogger)": {
-    "online": true,
-    "code": 200,
-    "checked_utc": "2026-10-28 20:25:42.461742"
+    "online": false,
+    "code": 429,
+    "error": "HTTP Error 429: Too Many Requests",
+    "checked_utc": "2026-10-29 00:09:43.128841"
   },
   "Digital Creator Vercel": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-10-28 20:25:42.813062"
+    "checked_utc": "2026-10-29 00:09:43.221098"
   },
   "Digital Creator Repo": {
     "online": true,
     "code": 200,
-    "checked_utc": "2026-10-28 20:25:43.503177"
+    "checked_utc": "2026-10-29 00:09:43.750569"
   }
 }
